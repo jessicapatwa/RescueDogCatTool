@@ -1,0 +1,72 @@
+<h1>{{title}} {{shelter.shelterName}}</h1>
+<h2>Click on each rescue dog or cat to see a more in depth bio!</h2>
+<div class="shelters-info">
+  <dl>
+    <dt>City</dt>
+    <dd>{{shelter.city}}</dd>
+    <dt>State</dt>
+    <dd>{{shelter.state}}</dd>
+    <dt>Number of Pets</dt>
+    <dd>{{shelter.numberPets}}</dd>
+    <dt>Rating</dt>
+    <dd>{{shelter.rating}}</dd>
+    <dt>Kill Shelter</dt>
+    <dd>{{shelter.killShelter}}</dd>
+    <dt>Time Before Euthanization</dt>
+    <dd>{{shelter.timeKept}}</dd>
+  </dl>
+
+  {{#if loggedIn}}
+    <a href="/shelters/{{shelter._id}}/save">Save this shelter!</a>
+    <a href="/shelters/{{shelter._id}}/remove">Remove this shelter from saved list</a>
+  {{/if}}
+
+  {{#if shelter.pets.length}}
+    <h3>Pets</h3>
+    <ul>
+      {{#each shelter.pets}}
+        <li><a href="/petdetails/{{this.id}}">{{this.name}}</a>
+        <ul> 
+            <li><img class="pet-img" src="../../{{this.picture}}" alt="{{pet.name}}, a rescue at this shelter."></li>
+        </ul>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</div>
+
+  {{#if shelter.reviews.length}}
+    <h3>Reviews</h3>
+    <ul>
+      {{#each shelter.reviews}}
+        <li>{{this.reviewerName}} - Review: "{{this.review}}" Rating: {{this.rating}}</li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No reviews yet</p>
+  {{/if}}
+
+{{#if loggedIn}}
+<div id="diverror">{{error}}</div>
+<form method="post" id="addReview">
+    <label id="nameLabel">
+        Reviewer Name
+        <input type="text" id="name" name="name" placeholder="Reviewer Name"/>
+    </label>
+    <label id="reviewLabel">
+        Review
+        <input type="text" id="review" name="review" placeholder="Review"/>
+    </label>
+    <label id="ratingLabel">
+        Rating
+        <input type="text" id="rating" name="rating" placeholder="Rating"/>
+    </label>
+    <button type="submit">Add Review</button>
+</form>
+<a href="/shelters/{{shelter._id}}/edit_review">Edit review here</a>
+<a href="/shelters/{{shelter._id}}/delete_review">Delete review here</a>
+{{/if}}
+{{#if isAdmin}}
+  <a href="/shelters/{{shelter._id}}/add_pet">Add a pet to this shelter</a>
+  <a href="/shelters/{{shelter._id}}/delete_pet">Delete a pet from this shelter</a>
+{{/if}}

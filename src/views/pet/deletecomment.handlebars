@@ -1,0 +1,15 @@
+<h1>{{title}}</h1>
+<div id="error" class="error">{{error}}</div>
+<form method="post" id="removeComment">
+    <h2>Comments</h2>
+
+  {{#each comments}}
+    <p>{{this.name}}: {{this.comment}}</p>
+    <form method="post" id="updateComment">
+      <input type="hidden" name="commentID" id="commentID" value="{{this._id}}">
+      <button type="submit">Delete Comment</button>
+    </form>
+  {{/each}}
+ 
+    
+</form>

@@ -1,0 +1,25 @@
+<h1>{{title}}</h1>
+{{#if user.savedPets.length}}
+    <h2>Saved Shelters</h2>
+    <ul>
+        {{#each user.savedPets}}
+            {{#if this.shelterName}}
+                <li><a href="/shelters/{{this._id}}">{{this.shelterName}}</a></li>
+            {{/if}}
+        {{/each}}
+    </ul>
+{{else}}
+    <p>No shelters saved</p>
+{{/if}}
+{{#if user.savedPets.length}}
+    <h2>Saved Pets</h2>
+    <ul>
+        {{#each user.savedPets}}
+            {{#if this.name}}
+                <li><a href="/petdetails/{{this._id}}">{{this.name}}</a></li>
+            {{/if}}
+        {{/each}}
+    </ul>
+{{else}}
+    <p>No pets saved</p>
+{{/if}}
